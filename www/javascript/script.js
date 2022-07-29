@@ -170,46 +170,73 @@ class Indexer extends AbstractUIComponent {
     constructor(UIView, total, mode = indexerMode.NONE) {
         super(UIView);
 
-        // Codez ici les propriétés déENDies dans le diagramme de classes.
+        // Codez ici les propriétés définies dans le diagramme de classes.
+
+        // le total d'éléments.
         this.total = total;
+        // Le mode (répétition, aucun, etc...)
         this.mode = mode;
+        // Le bouton suivant
         this.nextBtn = this.querySelector(IndexerDirection.NEXT);
+        // Le bouton précédent
         this.previousBtn = this.querySelector(IndexerDirection.PREVIOUS);
+        
         this.init();
     }
 
+    // setter pour définir le mode si besoin après initialisation.
     set mode(value) {
         this.indexerMode = value;
     }
 
+    // setter pour définir le total d'éléments. Définit lors du filtrage et la réinitialisation du filtrage
     set totalItems(value) {
         this.total = value;
         this.setNumbers();
     }
 
+    // surcharge pour retourner la valeur du composant.
     get value() {
         return super.value;
     }
 
+    // surcharge pour modifier la valeur du composant.
     set value(value) {
         this.index = value;
         this.checkIndex();
         super.value = value;
     }
 
+    // Méthode d'initialisation du composant (surcharge)
     init() {
         // Appelez ici les méthodes d'initialisation du composant décrites dans le diagrammes de classe.
         super.init();
     }
 
+    // Change l'index en fonction de la direction déterminée par le clic sur les boutons suivant / précédent.
     // Adaptation en méthode de la fonction du TP Citations. Déjà codée pour vous. :)
     changeIndex(direction) {
         direction == indexerDirection.NEXT ? this.index++ : this.index--;
         this.checkIndex();
     }
 
+     // Vérifie l'index en fonction du mode et le remet à 0 si out of range
     checkIndex() {
         // Codez cette méthode. Adaptation en classe du TP Citation.
+        if (this.mode == indexerMode.LOOP) {
+
+            const maxIndex = this.totalItems - 1;
+            const minIndex = 0;
+
+            if (this.index < minIndex) {
+                this.index = maxIndex;
+            }
+
+            if (this.index > maxIndex) {
+                this.index = minIndex;
+            }
+            
+        }
     }
 
     setNumbers() {
