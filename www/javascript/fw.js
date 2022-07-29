@@ -34,7 +34,7 @@ class AbstractUIComponent extends EventTarget { // DIAG
     }
 
     set value(value){
-        console.log("toto");
+        console.log("AbstractUIComponent", "set value");
         
         this.valueComponent = value;
     }
