@@ -27,9 +27,13 @@ const IndexerDirection = {
 class WorldCities extends AbstractApp {
     constructor(containerDiv) {
         super(containerDiv);
+        // Le tableau d'origines de villes (pour le filtrage)
         this.baseTowns = [];
+        // Le tableau de villes
         this.towns = [];
+        // Le composant avec les boutons suivant / précécent pour changer l'index des données en cours.
         this.indexer;
+        // Le composant avec le champs de filtrage + boutton de réinitialisation.
         this.searchIpt;
     }
 
@@ -40,46 +44,57 @@ class WorldCities extends AbstractApp {
         this.loadTown(0);
     }
 
+    // setter pour définir l'index en cours. Utile lors du passage de l'index dans l'URL pour accéder directement à une ville.
     set index(value) {
         this.index = value; 
     }
 
+    // Initialise le tableau de villes.
     initTowns(dataSource) {
         
     }
 
+    // Affiche le contenu des infos d'une ville dans les champs correspondants.
     loadTown(index) {
         this.loadGallery(this.dataSource[index]);
     }
 
+    // Affiche les images du tableau d'images passés en paramètre à partir de la méthode loadTown().
     loadGallery(images) {
 
     }
 
+    // Gestionnaire exécuté lors de la saisie d'un texte dans le champs de recherche.
     searchInputHandler() {
 
     }
 
+    // Gestionnaire exécuté lors de l'effacement du texte du champs de recherche.
     clearSearchInputHandler() {
 
     }
 
+    // Rafraichit l'app lors du filtrage ou de sa réinitialisation.
     refresh() {
 
     }
 
+    // Méthode de filtrage du tableau de villes.
     filterElement(arr, filter) {
 
     }
 
+    // Méthode d'initialisation du composant SearchInput.
     initInput() {
 
     }
 
+    // Gestionnaire exécuté lors du changement d'index dans le composant indexer.
     indexerIndexChangeHandler() {
 
     }
 
+    // Méthode d'initialisation du composant Indexer.
     initIndexer() {
 
     }
@@ -100,26 +115,41 @@ class SearchInput extends AbstractUIComponent {
     constructor(UIView) {
         super(UIView);
 
-        // Codez ici les propriétés déENDies dans le diagramme de classes.
+        // Codez ici les propriétés définies dans le diagramme de classes.
         this.init();
+        // propriété pour le binding de searchInputHandler lors de la saisie de texte
+        this.boundSearchInputHandler;
+        // propriété pour le binding de clearSearchHandler lors de l'effacement de texte
+        this.boundClearSearchHandler;
+
     }
 
+    // getter du composant (surcharge)
     get value() {
         return super.value;
     }
 
+    // setter du composant (surcharge)
+    set value(value) {
+        super.value = value;
+    }
+
+    // Gestionnaire exécuté lors de la saisie de texte. Dispatch un SearchInputEvent de type SearchInputEventNames. SEARCH_INPUT écouté dans l'app.
     searchInputHandler() {
         // Codez cette méthode. Adaptation en classe du TP Citation.
     }
 
+    // Gestionnaire exécuté lors de l'effacement du champs de texte quand on clique sur le bouton d'effacement. Dispatch un SearchInputEvent de type SearchInputEventNames.CLEAR_SEARCH_INPUT écouté dans l'app.
     clearSearchHandler() {
         // Codez cette méthode. Adaptation en classe du TP Citation.
     }
 
+    // Désactive ou active le boutton si le champs de texte est vide ou pas.
     checkClearButton() {
         // Codez cette méthode. Adaptation en classe du TP Citation.
     }
 
+    // Méthode d'initialisation du composant (surcharge)
     init() {
         // Appelez ici les méthodes d'initialisation du composant décrites dans le diagrammes de classe.
         super.init();
@@ -217,7 +247,14 @@ class IndexerButton extends AbstractButton {
     disable(bool = true) {
         // Codez cette méthode pour changer la couleur des boutons via la classe CSS. Adaptation en classe du TP Citation.
         super.disable(bool);
-    }
+        this.disabled = bool;
+        this.className = bool ? "disabled" : "";
+        if (bool) {
+            this.removeEventListener(EventNames.CLICK, this.boundEventHandler);
+        } else {
+            this.addEventListener(EventNames.CLICK, this.boundEventHandler);
+        }
+}
 }
 // END Class InderxerButton
 
