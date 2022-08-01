@@ -39,9 +39,9 @@ class WorldCities extends AbstractApp {
 
     init(dataSource) {
         // Codez cette méthode pour traiter le fichier chargé et initialiser la classe.
-        super.init(dataSource);
         this.initTowns(dataSource);
         this.loadTown(0);
+        super.init(dataSource);
     }
 
     // setter pour définir l'index en cours. Utile lors du passage de l'index dans l'URL pour accéder directement à une ville.
@@ -51,7 +51,10 @@ class WorldCities extends AbstractApp {
 
     // Initialise le tableau de villes.
     initTowns(dataSource) {
-        
+        for (const town of dataSource.towns) {
+            const city = new City(town);
+            this.baseTowns.push(city);
+        }
     }
 
     // Affiche le contenu des infos d'une ville dans les champs correspondants.
@@ -282,17 +285,18 @@ class IndexerButton extends AbstractButton {
 
 // START Class City
 // Classe à utiliser pour stocker chaque ville des données chargées du fichier externe datas.json.
+// permet de manipuler l'objet Json plus facilement et d'avoir l'autocomplétion dans l'IDE
 class City {
     constructor(dataSource) {
         this.country = dataSource.country;
         this.description = dataSource.description;
         this.images = dataSource.images;
         this.inhabitants = dataSource.inhabitants;
+        this.link = dataSource.link;
         this.major = dataSource.major;
         this.name = dataSource.name;
         this.region = dataSource.region;
         this.state = dataSource.state;
-        this.link = dataSource.link;
     }
 }
 // END Class City
