@@ -173,9 +173,9 @@ class Indexer extends AbstractUIComponent {
         // Codez ici les propriétés définies dans le diagramme de classes.
 
         // le total d'éléments.
-        this.total = total;
+        this.total;
         // Le mode (répétition, aucun, etc...)
-        this.mode = mode;
+        this.indexerMode = mode;
         // Le bouton suivant
         this.nextBtn = this.querySelector(IndexerDirection.NEXT);
         // Le bouton précédent
@@ -273,14 +273,8 @@ class IndexerButton extends AbstractButton {
 
     disable(bool = true) {
         // Codez cette méthode pour changer la couleur des boutons via la classe CSS. Adaptation en classe du TP Citation.
+        buttonDiv.className = bool ? "disabled" : "buttonNextPrevious";
         super.disable(bool);
-        this.disabled = bool;
-        this.className = bool ? "disabled" : "";
-        if (bool) {
-            this.removeEventListener(EventNames.CLICK, this.boundEventHandler);
-        } else {
-            this.addEventListener(EventNames.CLICK, this.boundEventHandler);
-        }
 }
 }
 // END Class InderxerButton
