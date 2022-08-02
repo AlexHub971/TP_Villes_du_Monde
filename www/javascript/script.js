@@ -59,12 +59,19 @@ class WorldCities extends AbstractApp {
 
     // Affiche le contenu des infos d'une ville dans les champs correspondants.
     loadTown(index) {
-        this.loadGallery(this.dataSource[index]);
+        const city = this.baseTowns(index);
+        const leftContainerDiv = this.containerDiv.querySelector("#left_container");
+        const leftContainerDivH2 = leftContainerDiv.querySelector("h2");
+        const desc = this.containerDiv.querySelector("#desc");
+
+        leftContainerDivH2.textContent = city.name;
+        desc.innerHTML = city.description;
     }
-
+    
     // Affiche les images du tableau d'images passés en paramètre à partir de la méthode loadTown().
-    loadGallery(images) {
-
+    loadGallery(images) {   
+        this.loadGallery(this.dataSource[index]);
+        
     }
 
     // Gestionnaire exécuté lors de la saisie d'un texte dans le champs de recherche.
@@ -176,7 +183,7 @@ class Indexer extends AbstractUIComponent {
         // Codez ici les propriétés définies dans le diagramme de classes.
 
         // le total d'éléments.
-        this.total;
+        this.total = total;
         // Le mode (répétition, aucun, etc...)
         this.indexerMode = mode;
         // Le bouton suivant
